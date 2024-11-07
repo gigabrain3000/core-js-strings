@@ -19,8 +19,8 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  return value !== null && value !== undefined ? value.length : 0;
 }
 
 /**
@@ -56,7 +56,7 @@ function isString(value) {
  *   concatenateStrings('', 'bb') => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  return value1 + value2;
+  return value1.concat(value2);
 }
 
 /**
@@ -71,7 +71,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value.slice(0, 1);
+  return value.charAt(0);
 }
 
 /**
@@ -100,8 +100,8 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  return value.trimStart();
 }
 
 /**
@@ -115,8 +115,8 @@ function removeLeadingWhitespaces(/* value */) {
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  return value.trimEnd();
 }
 
 /**
@@ -133,7 +133,7 @@ function removeTrailingWhitespaces(/* value */) {
  *   repeatString('abc', -2) => ''
  */
 function repeatString(value, count) {
-  return value.repeat(count);
+  return count > 0 ? value.repeat(count) : '';
 }
 
 /**
@@ -149,10 +149,11 @@ function repeatString(value, count) {
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
 function removeFirstOccurrences(str, value) {
-  return (
-    str.slice(0, str.indexOf(value)) +
-    str.slice(str.indexOf(value) + value.length)
-  );
+  return str.includes(value)
+    ? str
+        .substring(0, str.indexOf(value))
+        .concat(str.substring(str.indexOf(value) + value.length))
+    : str;
 }
 
 /**
